@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EPIC TROLL TOOL</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #111;
+            color: lime;
+            text-align: center;
+            padding: 20px;
+            user-select: none;
+        }
+        h1 {
+            font-size: 3em;
+            text-shadow: 0 0 10px #0f0;
+            margin-bottom: 0;
+        }
+        .subtitle {
+            color: #ff00ff;
+            margin-top: 0;
+        }
+        .troll-button {
+            background: #ff00ff;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 1.2em;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            display: block;
+            width: 80%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .troll-button:hover {
+            background: #ff0;
+            color: black;
+            transform: scale(1.05);
+        }
+        .warning {
+            color: red;
+            font-weight: bold;
+            margin: 20px;
+        }
+        #fakeUpdate {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0078d7;
+            color: white;
+            z-index: 9999;
+            padding-top: 100px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        #cursorJiggleInfo {
+            display: none;
+            color: cyan;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>EPIC TROLL TOOL</h1>
+    <p class="subtitle">Warning: May cause laughter, rage, or both 😈</p>
+    
+    <button class="troll-button" onclick="fakeVirusScan()">🦠 Fake Virus Scan</button>
+    <button class="troll-button" onclick="rickroll()">🎸 Secret Rickroll</button>
+    <button class="troll-button" onclick="infinitePopups()">💥 Infinite Popups (Annoying!)</button>
+    <button class="troll-button" onclick="fakeBSOD()">💻 Fake BSOD (Blue Screen)</button>
+    <button class="troll-button" onclick="fakeUpdate()">🔄 Fake Windows Update</button>
+    <button class="troll-button" onclick="mouseJiggler()">🖱️ Mouse Jiggler (Wiggle Cursor)</button>
+    <button class="troll-button" onclick="reverseMouse()">🔀 Reverse Mouse (10 Seconds)</button>
+    <button class="troll-button" onclick="fakeDownload()">📥 Fake 1000TB Download</button>
+    <button class="troll-button" onclick="playAirhorn()">📢 Play Airhorn Sound</button>
+    
+    <p class="warning">⚠️ Use for harmless fun only! Don't be evil.</p>
+
+    <div id="fakeUpdate">
+        <h1>Windows Update</h1>
+        <p>Do not turn off your computer...</p>
+        <progress id="updateProgress" value="0" max="100"></progress>
+        <p id="updatePercent">0% complete</p>
+    </div>
+
+    <p id="cursorJiggleInfo">Cursor jiggling ACTIVE! Press ESC to stop.</p>
+
+    <script>
+        // ===== TROLL FUNCTIONS ===== //
+
+        // Fake Virus Scan
+        function fakeVirusScan() {
+            alert("⚠️ VIRUS DETECTED: 69420 TROLLS FOUND!");
+            let percent = 0;
+            const scanInterval = setInterval(() => {
+                percent += 5;
+                console.log(`Scanning... ${percent}% complete`);
+                if (percent >= 100) {
+                    clearInterval(scanInterval);
+                    alert("🚨 SYSTEM OVERRIDE: YOUR PC IS NOW TROLLED!");
+                }
+            }, 500);
+        }
+
+        // Rickroll (hidden tab)
+        function rickroll() {
+            window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank", "width=300,height=200");
+        }
+
+        // Infinite Popups (limited to 20)
+        function infinitePopups() {
+            let count = 0;
+            const pop = () => {
+                if (count < 20) {
+                    alert("😂 YOU'VE BEEN TROLLED! 😂 (" + (count + 1) + "/20)");
+                    count++;
+                    pop();
+                }
+            };
+            pop();
+        }
+
+        // Fake Blue Screen of Death
+        function fakeBSOD() {
+            document.body.innerHTML = `
+                <div style="
+                    background: #0078d7;
+                    color: white;
+                    font-family: 'Courier New', monospace;
+                    padding: 20px;
+                    height: 100vh;
+                ">
+                    <h1>:(</h1>
+                    <p>Your PC ran into a problem and needs to restart.</p>
+                    <p>Error code: TROLL_CRITICAL_FAILURE</p>
+                    <p>0% complete</p>
+                    <small>Press any key to continue (just kidding, it's fake)</small>
+                </div>
+            `;
+            setTimeout(() => {
+                location.reload();
+            }, 5000);
+        }
+
+        // Fake Windows Update
+        function fakeUpdate() {
+            document.getElementById('fakeUpdate').style.display = 'block';
+            let percent = 0;
+            const updateInterval = setInterval(() => {
+                percent += 1;
+                document.getElementById('updateProgress').value = percent;
+                document.getElementById('updatePercent').innerText = percent + '% complete';
+                if (percent >= 100) {
+                    clearInterval(updateInterval);
+                    setTimeout(() => {
+                        document.getElementById('fakeUpdate').style.display = 'none';
+                    }, 2000);
+                }
+            }, 100);
+        }
+
+        // Mouse Jiggler (moves cursor randomly)
+        let jiggleInterval;
+        function mouseJiggler() {
+            document.getElementById('cursorJiggleInfo').style.display = 'block';
+            let x = 0, y = 0;
+            jiggleInterval = setInterval(() => {
+                x += (Math.random() * 20 - 10);
+                y += (Math.random() * 20 - 10);
+                window.moveBy(x, y);
+            }, 100);
+            
+            // Stop on ESC key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    clearInterval(jiggleInterval);
+                    document.getElementById('cursorJiggleInfo').style.display = 'none';
+                }
+            });
+        }
+
+        // Reverse Mouse (10 seconds)
+        function reverseMouse() {
+            alert("🔄 Mouse controls REVERSED for 10 seconds!");
+            const originalMove = window.moveBy;
+            window.moveBy = function(a, b) {
+                originalMove.call(this, -a, -b);
+            };
+            setTimeout(() => {
+                window.moveBy = originalMove;
+                alert("Mouse is back to normal!");
+            }, 10000);
+        }
+
+        // Fake Download
+        function fakeDownload() {
+            let percent = 0;
+            const downloadInterval = setInterval(() => {
+                percent += 1;
+                console.log(`Downloading illegal memes... ${percent}%`);
+                if (percent >= 100) {
+                    clearInterval(downloadInterval);
+                    alert("✅ Download complete! (jk, it's fake)");
+                }
+            }, 100);
+        }
+
+        // Play Airhorn Sound
+        function playAirhorn() {
+            const audio = new Audio('https://www.myinstants.com/media/sounds/air-horn-claxons.mp3');
+            audio.play().catch(e => alert("Couldn't play sound (blocked by browser)"));
+        }
+    </script>
+</body>
+</html>
