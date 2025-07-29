@@ -9,7 +9,6 @@
             color: lime;
             text-align: center;
             padding: 20px;
-            user-select: none;
         }
         h1 {
             font-size: 3em;
@@ -46,23 +45,40 @@
             font-weight: bold;
             margin: 20px;
         }
-        #fakeUpdate {
+        #fakeWindow {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            background: #f0f0f0;
+            border: 3px solid #0078d7;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            z-index: 9999;
+            font-family: 'Segoe UI', sans-serif;
+            color: black;
+            text-align: left;
+        }
+        #fakeWindowHeader {
             background: #0078d7;
             color: white;
-            z-index: 9999;
-            padding-top: 100px;
-            font-family: 'Segoe UI', sans-serif;
+            padding: 8px;
+            font-weight: bold;
+            cursor: move;
         }
-        #cursorJiggleInfo {
-            display: none;
-            color: cyan;
-            margin: 10px;
+        #fakeWindowContent {
+            padding: 20px;
+        }
+        #fakeWindowClose {
+            float: right;
+            cursor: pointer;
+        }
+        #secretLink {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -71,25 +87,23 @@
     <p class="subtitle">Warning: May cause laughter, rage, or both 😈</p>
     
     <button class="troll-button" onclick="fakeVirusScan()">🦠 Fake Virus Scan</button>
-    <button class="troll-button" onclick="rickroll()">🎸 Secret Rickroll</button>
+    <button class="troll-button" onclick="showSecretWindow()">🔒 Secret Rickroll</button>
     <button class="troll-button" onclick="infinitePopups()">💥 Infinite Popups (Annoying!)</button>
-    <button class="troll-button" onclick="fakeBSOD()">💻 Fake BSOD (Blue Screen)</button>
-    <button class="troll-button" onclick="fakeUpdate()">🔄 Fake Windows Update</button>
-    <button class="troll-button" onclick="mouseJiggler()">🖱️ Mouse Jiggler (Wiggle Cursor)</button>
-    <button class="troll-button" onclick="reverseMouse()">🔀 Reverse Mouse (10 Seconds)</button>
     <button class="troll-button" onclick="fakeDownload()">📥 Fake 1000TB Download</button>
     <button class="troll-button" onclick="playAirhorn()">📢 Play Airhorn Sound</button>
     
-    <p class="warning">⚠️ Use for harmless fun only! Don't be evil.</p>
+    <p class="warning">⚠️ Use for harmless fun only! Don't be evil or be, i don't care.</p>
 
-    <div id="fakeUpdate">
-        <h1>Windows Update</h1>
-        <p>Do not turn off your computer...</p>
-        <progress id="updateProgress" value="0" max="100"></progress>
-        <p id="updatePercent">0% complete</p>
+    <div id="fakeWindow">
+        <div id="fakeWindowHeader">
+            <span>Secret Link Found</span>
+            <span id="fakeWindowClose" onclick="closeFakeWindow()">✖</span>
+        </div>
+        <div id="fakeWindowContent">
+            <p>Send this link to your friends(it's a rickroll link):</p>
+            <p id="secretLink" onclick="rickroll()">66846346583565.22web.org</p>
+        </div>
     </div>
-
-    <p id="cursorJiggleInfo">Cursor jiggling ACTIVE! Press ESC to stop.</p>
 
     <script>
         // ===== TROLL FUNCTIONS ===== //
@@ -108,9 +122,20 @@
             }, 500);
         }
 
-        // Rickroll (hidden tab)
+        // Show fake Windows-style window
+        function showSecretWindow() {
+            document.getElementById('fakeWindow').style.display = 'block';
+        }
+
+        // Close fake window
+        function closeFakeWindow() {
+            document.getElementById('fakeWindow').style.display = 'none';
+        }
+
+        // Rickroll function
         function rickroll() {
-            window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank", "width=300,height=200");
+            window.open("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "_blank");
+            closeFakeWindow();
         }
 
         // Infinite Popups (limited to 20)
@@ -124,78 +149,6 @@
                 }
             };
             pop();
-        }
-
-        // Fake Blue Screen of Death
-        function fakeBSOD() {
-            document.body.innerHTML = `
-                <div style="
-                    background: #0078d7;
-                    color: white;
-                    font-family: 'Courier New', monospace;
-                    padding: 20px;
-                    height: 100vh;
-                ">
-                    <h1>:(</h1>
-                    <p>Your PC ran into a problem and needs to restart.</p>
-                    <p>Error code: TROLL_CRITICAL_FAILURE</p>
-                    <p>0% complete</p>
-                    <small>Press any key to continue (just kidding, it's fake)</small>
-                </div>
-            `;
-            setTimeout(() => {
-                location.reload();
-            }, 5000);
-        }
-
-        // Fake Windows Update
-        function fakeUpdate() {
-            document.getElementById('fakeUpdate').style.display = 'block';
-            let percent = 0;
-            const updateInterval = setInterval(() => {
-                percent += 1;
-                document.getElementById('updateProgress').value = percent;
-                document.getElementById('updatePercent').innerText = percent + '% complete';
-                if (percent >= 100) {
-                    clearInterval(updateInterval);
-                    setTimeout(() => {
-                        document.getElementById('fakeUpdate').style.display = 'none';
-                    }, 2000);
-                }
-            }, 100);
-        }
-
-        // Mouse Jiggler (moves cursor randomly)
-        let jiggleInterval;
-        function mouseJiggler() {
-            document.getElementById('cursorJiggleInfo').style.display = 'block';
-            let x = 0, y = 0;
-            jiggleInterval = setInterval(() => {
-                x += (Math.random() * 20 - 10);
-                y += (Math.random() * 20 - 10);
-                window.moveBy(x, y);
-            }, 100);
-            
-            // Stop on ESC key
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape') {
-                    clearInterval(jiggleInterval);
-                    document.getElementById('cursorJiggleInfo').style.display = 'none';
-                }
-            });
-        }
-
-        // Reverse Mouse (10 seconds)
-        function reverseMouse() {
-            alert("🔄 Mouse controls REVERSED for 10 seconds!");
-            const originalMove = window.moveBy;
-            window.moveBy = function(a, b) {
-                originalMove.call(this, -a, -b);
-            };
-            setTimeout(() => {
-                window.moveBy = originalMove;
-                alert("Mouse is back to normal!");
-            }, 10000);
         }
 
         // Fake Download
@@ -216,6 +169,32 @@
             const audio = new Audio('https://www.myinstants.com/media/sounds/air-horn-claxons.mp3');
             audio.play().catch(e => alert("Couldn't play sound (blocked by browser)"));
         }
+
+        // Make fake window draggable
+        let isDragging = false;
+        let offsetX, offsetY;
+        const fakeWindow = document.getElementById('fakeWindow');
+        const fakeWindowHeader = document.getElementById('fakeWindowHeader');
+
+        fakeWindowHeader.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offsetX = e.clientX - fakeWindow.getBoundingClientRect().left;
+            offsetY = e.clientY - fakeWindow.getBoundingClientRect().top;
+            fakeWindow.style.cursor = 'grabbing';
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                fakeWindow.style.left = (e.clientX - offsetX) + 'px';
+                fakeWindow.style.top = (e.clientY - offsetY) + 'px';
+                fakeWindow.style.transform = 'none';
+            }
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            fakeWindow.style.cursor = 'default';
+        });
     </script>
 </body>
 </html>
